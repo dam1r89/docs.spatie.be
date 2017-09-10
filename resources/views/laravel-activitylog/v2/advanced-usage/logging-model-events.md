@@ -79,6 +79,27 @@ $activity->description; //returns 'deleted'
 $activity->changes(); //returns ['attributes' => ['name' => 'updated name', 'text' => 'Lorum']];
 ```
 
+## Log all fillable attributes
+
+In case you want to log changes to every `$fillable` attribute there is option to do that by setting `$logFillable` property.
+
+```php
+use Illuminate\Database\Eloquent\Model;
+use Spatie\Activitylog\Traits\LogsActivity;
+
+class NewsItem extends Model
+{
+    use LogsActivity;
+
+    protected $fillable = ['name', 'text'];
+    
+    protected static $logFillable = true;
+}
+```
+
+To log changes to any additional attribute which is not listed in `$fillable` you can add them to `$logAttributes` as usual.
+
+
 ## Customizing the events being logged
 
 By default the package will log the `created`, `updated`, `deleted` events. You can modify this behaviour by setting the `$recordEvents` property on a model.
